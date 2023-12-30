@@ -1,0 +1,33 @@
+import { JSEncrypt } from 'jsencrypt'
+
+// http://web.chacuo.net/netrsakeypair
+
+// public key
+const PUBLIC_KEY = `
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAplYnIj2PnJOmPrqw238c0cPmSSEbicyY3KIIBEKAvrE6lMmutvb1bT2yZnYoOXGiOS6xS69w3jcmoofRz49ZVqlLZUXfV9SBC3XUosuAkd652EYyBwMihtXiOCmOUrmvpIeZRywX/5nXaG28qlcVRNmcGqh42MJ5pc3547sKDhm5Jnubf7/N8MgNzXCtklM298bXK3D1/AmZE9jnCS1x8vqthwNzpprKj5SydxTZpko+ylcRCyFHts9tCzy7WeJdTTduyYtjgdYYHg4PqHpT76kW7/q6oQQi//TNO5RB5ezwQaQGPF2naVAZr7cFq9ybitrFLMpFafBuZIH3pe3tUwIDAQAB
+`
+// private key
+const PRIVATE_KEY = `
+MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCmViciPY+ck6Y+urDbfxzRw+ZJIRuJzJjcoggEQoC+sTqUya629vVtPbJmdig5caI5LrFLr3DeNyaih9HPj1lWqUtlRd9X1IELddSiy4CR3rnYRjIHAyKG1eI4KY5Sua+kh5lHLBf/mddobbyqVxVE2ZwaqHjYwnmlzfnjuwoOGbkme5t/v83wyA3NcK2SUzb3xtcrcPX8CZkT2OcJLXHy+q2HA3OmmsqPlLJ3FNmmSj7KVxELIUe2z20LPLtZ4l1NN27Ji2OB1hgeDg+oelPvqRbv+rqhBCL/9M07lEHl7PBBpAY8XadpUBmvtwWr3JuK2sUsykVp8G5kgfel7e1TAgMBAAECggEAP86ErInY8UNiXmXXOhwEviLbz+m3WqD1co1lbdzk7kGmKzVCpEUP2Jv2N3/T5lVE2ZKjyFjAfz3AwFBBl9Fxf+DpXyvyhQqrhe3pZ5mQ9GPv/prOzgnR0M9zPAAU7H72dbLehYLQoegtzY1q9hz5t7OSQlemI+BWMdhVp5o0PTvaV+nC3mpC7PmffiFeghWMXJ4on8H2tX8QQgf3WBGGqlzUJYz/wnpdI5cbZ2a44yl+AYvbOjv3LSLrup1iGWmKOiTHLBOSDsPoRYWKJrS79KKD6XjN69KpskdrV46JRqKiCMcUekwHbUOVBwJorIwzXHOZQ9u6K62Kk/t9KJHmYQKBgQDZNaI8bmeJLzQiZDiLV3NugZWfT0mv86SHJjzTq3EZd4uKlXf/+W4SLhI+R+hXFn9RyHwzVP/32/HlG/Mpl+XcCaVOtcjk0ZchdMm1ZxnZdPbdxvknlgN4QmwKLUgPsGCVKhEXctZR8UKtKDeFyTTLafYyUNBpQ5C2xH0B957jBwKBgQDECrZ5/V/pmx8OE40iet0Hc66UDrdRMuaezwSJ+iMqdMzLWIDZJRvHmEAxewkm2uDJdUUrHxq9Xy6UI36N5obLHTYjpyP8PbqDYBgUj4MSzXqeYQvDd4GmQBGQWuUtOlsFzjRXK0exba0HaASdWFyfcn1NAnUif/ys0MuOjBAUVQKBgDUZNGjbgHn7zR3fLCd8IF7SVNZWFqhpwj27rkD8dzCHldgyA9zSiALvukv5XiXz/PnsLdiKnexkmzSr6XywgmORBBVCwTKWvgBSwYCUDLCpNDQxEPWJaZ27dxfhy+zx7Bpq5zS5QQVVGjykSTZuYnabl7DjKp+hAb58OCcD9pZ/AoGATAiDoWid7HKXZtQ6ZucUFrHNQes7OijtvSY5cnIrdWn7i9p1jsKPtafdLdO0RveZO0laXFEiA9SIsjfZ+5svKFPaDZXjpQ8j6ZQ5gq/ufDpplke5UkRlal9q8Hvwasw5RVUmg7Bri+snsrmrIIOG2OiEpHuRhqHxE+2fJVg5XEkCgYA4T43WQCLJGavOb+E5aHVC2CGLpBlDFwXDyHZfRi9BKgh+Mnq353cLbzO60Cjg+YyaIUVnQ9csxqEvxzvkmtXSs+99HpyNyuqlSBHJn+ccQFNJUyNwJyTLdbr+727ovx68LNMpDI9KnblZgwXLzeFhc0KkSYTrIuEYZtQN0LnMRQ==
+`
+/**
+ * @description encryption with PUBLIC_KEY ff
+ * @param txt {string} need encrypt text
+ * @returns encrypted text
+ */
+export const encrypt = txt => {
+  const encryptor = new JSEncrypt()
+  encryptor.setPublicKey(PUBLIC_KEY)
+  return encryptor.encrypt(txt)
+}
+
+/**
+ * @description decryption by PRIVATE_KEY
+ * @param txt {string} need decrypt text
+ * @returns decrypted text
+ */
+export const decrypt = txt => {
+  const decryptor = new JSEncrypt()
+  decryptor.setPrivateKey(PRIVATE_KEY)
+  return decryptor.decrypt(txt)
+}
