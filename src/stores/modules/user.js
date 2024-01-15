@@ -1,6 +1,8 @@
 import { setToken } from '@/utils/cookie'
 import { defineStore } from 'pinia'
+import { Login } from '@/api/auth/user.js'
 import { reactive, toRefs } from 'vue'
+import { ElMessage } from 'element-plus'
 const useUserStore = defineStore('user', () => {
   const state = reactive({
     username: ''
@@ -9,9 +11,17 @@ const useUserStore = defineStore('user', () => {
   const login = (form) => {
     return new Promise(resolve => {
       // 这里应该调后台接口
-      console.log('TODO待使用后端接口', form)
-      setToken('TOKEN:test20230814151453')
-      resolve()
+      Login(form).then((res) => {
+        if (res.data.code === 200) {
+          setToken(res.data.data)
+          resolve(res.data.msg)
+        } else {
+          ElMessage({
+            type: 'error',
+            message: '账号或密码错误'
+          })
+        }
+      })
     })
   }
 

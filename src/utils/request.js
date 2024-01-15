@@ -1,13 +1,14 @@
 import axios from 'axios'
 import { getToken } from './cookie'
-import errorCode from '../config/error-code'
-import { ElMessage } from 'element-plus'
+// import errorCode from '../config/error-code'
+// import { ElMessage } from 'element-plus'
+import { whatDevTech } from './prod'
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 
 // 创建axios实例
 const request = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: whatDevTech() + import.meta.env.VITE_APP_BASE_API,
   // 超时
   timeout: 10000
 })
@@ -30,17 +31,19 @@ request.interceptors.response.use(
     const responseTypes = ['blob', 'arraybuffer']
     if (responseTypes.includes(res.request.responseType)) return res.data
 
-    const code = res.data.code || 200
-    const msg = res.data.message || errorCode[code] || errorCode['default']
+    // const code = res.data.code || 200
+    // const msg = res.data.message || errorCode[code] || errorCode['default']
 
-    if (code !== 200) {
-      ElMessage.error(msg)
-      return Promise.reject(new Error(msg))
-    }
+    // if (code !== 200) {
+    //   ElMessage.error(msg)
+    //   return Promise.reject(new Error(msg))
+    // }
 
-    return res.data
+    // return res.data
+    return res
   },
   err => Promise.reject(err)
 )
 
+export const http = request
 export default request

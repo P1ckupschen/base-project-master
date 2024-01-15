@@ -1,5 +1,5 @@
 <template>
-  <el-tag size="default" type="info" effect="plain">贰柏武</el-tag>
+  <el-tag size="default" type="info" effect="plain">后台管理员</el-tag>
 </template>
 
 <script setup>

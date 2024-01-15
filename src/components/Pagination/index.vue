@@ -18,7 +18,6 @@
 
 <script setup>
 import { scrollTo } from '@/utils/scroll-to'
-
 const props = defineProps({
   total: {
     required: true,
@@ -60,7 +59,7 @@ const props = defineProps({
     default: false
   }
 })
-const emit = defineEmits()
+const emit = defineEmits(['update:limit', 'pagination', 'update:page'])
 const currentPage = computed({
   get() {
     return props.page

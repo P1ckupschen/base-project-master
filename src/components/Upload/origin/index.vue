@@ -19,7 +19,7 @@
       <el-alert :title="file?.name" type="info" :closable="false" />
     </div>
 
-    <input ref="uploadRef" type="file" accept=".xls" class="input-file" @change="uploadChange" />
+    <input ref="uploadRef" type="file" accept=".pdf" class="input-file" @change="uploadChange" />
   </div>
 </template>
 

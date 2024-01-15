@@ -13,6 +13,10 @@ export const staticRouter = [
     name: 'PageLogin',
     component: () => import('@/views/login/index.vue'),
     meta: { title: '登录', isHide: true }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/error-page/404')
   }
 
 ]

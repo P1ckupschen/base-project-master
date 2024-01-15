@@ -80,6 +80,7 @@
     "watchEffect": true,
     "watchPostEffect": true,
     "watchSyncEffect": true,
-    "ElMessageBox": true
+    "ElMessageBox": true,
+    "ElMessage": true
   }
 }

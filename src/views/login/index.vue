@@ -32,21 +32,21 @@
               type="password"
             />
           </el-form-item>
-          <el-form-item prop="remember">
+          <!-- <el-form-item prop="remember">
             <el-checkbox v-model="form.remember">{{ $t('login.remember') }}</el-checkbox>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <el-button type="primary" auto-insert-space @click="login">{{
               $t('login.sign_in')
             }}</el-button>
-            <el-button plain type="default" auto-insert-space @click="reset">{{
+            <!-- <el-button plain type="default" auto-insert-space @click="reset">{{
               $t('common.reset')
-            }}</el-button>
+            }}</el-button> -->
           </el-form-item>
           <el-form-item>
             <el-divider></el-divider>
-            <el-button link type="primary">{{ $t('login.sign_up') }}</el-button>
-            <el-button link type="primary">{{ $t('login.forget') }}</el-button>
+            <!-- <el-button link type="primary" @click="signup">{{ $t('login.sign_up') }}</el-button>
+            <el-button link type="primary">{{ $t('login.forget') }}</el-button> -->
           </el-form-item>
         </el-form>
       </div>
@@ -76,20 +76,30 @@ const rules = reactive({
   password: [{ required: true, trigger: 'blur' }]
 })
 
-const reset = () => {
-  loginRef.value.resetFields()
-}
+// const reset = () => {
+//   loginRef.value.resetFields()
+// }
 
 const login = () => {
   loginRef.value.validate(valid => {
     if (valid) {
       setCookie()
-      userStore.login().then(() => {
+      var formData = {}
+      Object.assign(formData, form)
+      formData.password = encrypt(form.password)
+      console.log(formData)
+      userStore.login(formData).then(() => {
         router.push('/')
       })
     }
   })
 }
+
+// const signup = () => {
+//   console.log(location.host)
+//   console.log(location.href)
+//   console.log(import.meta.env.VITE_APP_BASE_API)
+// }
 
 const setCookie = () => {
   if (form.remember) {

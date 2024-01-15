@@ -5,6 +5,7 @@ import ElementPlus from 'unplugin-element-plus/vite'
 import optimizeDepsElementPlusIncludes from './optimize/optimizeDepsElementPlusIncludes'
 // // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [
     useVitePlugins(),
     ElementPlus({
@@ -33,7 +34,7 @@ export default defineConfig({
     proxy: {
       // https://cn.vitejs.dev/config/#server-proxy
       '/dev-api': {
-        target: 'http://192.168.0.220:7101',
+        target: 'http://192.168.0.220:8083',
         changeOrigin: true,
         rewrite: p => p.replace(/^\/dev-api/, '')
       }
