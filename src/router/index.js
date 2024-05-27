@@ -41,7 +41,7 @@ router.beforeEach(async(to, from, next) => {
     } else {
       if (authStore.dynamicMenuList.length === 0) {
         await initDynamicRouter()
-        console.log(router.getRoutes())
+        // console.log(router.getRoutes())
         next({ ...to, replace: true })
       } else {
         next()

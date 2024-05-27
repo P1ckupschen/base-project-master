@@ -7,8 +7,10 @@ export const whatEnv = () => {
 
 export const whatDevTech = () => {
   if (import.meta.env.VITE_APP_DEV_TECH === 'Php') {
-    return 'index.php'
+    return '/index.php'
   } else if (import.meta.env.VITE_APP_DEV_TECH === 'Java') {
-    return ''
+    return '/backend'
   }
 }
+
+export const envUrl = import.meta.env.VITE_APP_BASE_API + whatDevTech()

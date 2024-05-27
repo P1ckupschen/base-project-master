@@ -8,6 +8,7 @@
 import { useI18n } from 'vue-i18n'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { removeToken } from '@/utils/cookie'
+import { Logout } from '@/api/auth/user.js'
 
 defineOptions({ name: 'AppLogout' })
 
@@ -24,15 +25,16 @@ const logout = () => {
       buttonSize: 'default'
     }
   )
-  .then(() => {
-    localStorage.removeItem('keep-alive')
-    localStorage.removeItem('tags-view')
-    localStorage.removeItem('layout')
-    localStorage.removeItem('app')
-    removeToken()
-    location.reload()
-    router.replace('/login')
-  })
-  .catch(() => {})
+    .then(async() => {
+      await Logout()
+      localStorage.removeItem('keep-alive')
+      localStorage.removeItem('tags-view')
+      localStorage.removeItem('layout')
+      localStorage.removeItem('app')
+      removeToken()
+      location.reload()
+      router.replace('/login')
+    })
+    .catch(() => {})
 }
 </script>

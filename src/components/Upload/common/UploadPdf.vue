@@ -19,8 +19,8 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 import { computed, ref } from 'vue'
-import { uploadPdfUrl, getHeaders, deleteFile, filePublicHost } from '@/api/common/upload'
-
+import { uploadPdfUrl, deleteFile, filePublicHost } from '@/api/common/upload'
+import { getHeaders } from '@/utils/request.js'
 const props = defineProps({
   modelValue: {
     type: Array,
@@ -43,7 +43,6 @@ const handleRemove = (file) => {
   // if (target) {
   deleteFile({ path: file.url })
   // }
-
   const newList = value.value.filter((item) => item.uid !== uid)
   value.value = newList
 }

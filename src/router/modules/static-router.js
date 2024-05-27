@@ -16,7 +16,7 @@ export const staticRouter = [
   },
   {
     path: '/:pathMatch(.*)*',
-    component: () => import('@/views/error-page/404')
+    component: () => import('@/views/error/404/index.vue')
   }
 
 ]

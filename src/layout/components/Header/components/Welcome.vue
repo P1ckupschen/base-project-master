@@ -4,9 +4,6 @@
 
 <script setup>
 defineOptions({ name: 'AppWelcome' })
-
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <ul class="ignore">
+
+        <li><a href="javascript:translate.changeLanguage('chinese_simplified');">简体中文</a></li>|
+        <li><a href="javascript:translate.changeLanguage('chinese_traditional');">繁體中文</a></li>
+        <li><a href="javascript:translate.changeLanguage('english');">English</a></li>|
+    </ul>
+<h1>我的网页</h1>
+
+<p>翻译</p>
+
+<!-- <p>You can translate the content of this page by selecting a language in the select box.</p> -->
+
+<p>你可以通过下拉框选择语言来翻译</p>
+</body>
+</html>
+
+
+<script src="https://res.zvo.cn/translate/translate.js"></script>
+<!-- <script src="E:\sch-work-space\projects\hbkj\backend\vue-template\src\utils\translate.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/gh/xnx3/translate@latest/translate.js/translate.min.js"></script> -->
+<script>
+	translate.selectLanguageTag.show = false; //不出现的select的选择语言
+	translate.execute();
+</script>
+<!-- <script>
+    translate.language.setDefaultTo('chinese_simplified');
+translate.language.setLocal('chinese_simplified'); 
+//设置本地语种（当前网页的语种）。如果不设置，默认自动识别当前网页显示文字的语种。 可填写如 'english'、'chinese_simplified' 等，具体参见文档下方关于此的说明。
+translate.execute();//进行翻译 
+</script> -->

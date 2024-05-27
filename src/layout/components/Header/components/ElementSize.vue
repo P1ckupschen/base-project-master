@@ -6,9 +6,15 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item command="large" :disabled="size === 'large'">{{ $t('element_size.large') }}</el-dropdown-item>
-          <el-dropdown-item command="default" :disabled="size === 'default'">{{ $t('element_size.default') }}</el-dropdown-item>
-          <el-dropdown-item command="small" :disabled="size === 'small'">{{ $t('element_size.small') }}</el-dropdown-item>
+          <el-dropdown-item command="large" :disabled="size === 'large'">{{
+            $t('element_size.large')
+          }}</el-dropdown-item>
+          <el-dropdown-item command="default" :disabled="size === 'default'">{{
+            $t('element_size.default')
+          }}</el-dropdown-item>
+          <el-dropdown-item command="small" :disabled="size === 'small'">{{
+            $t('element_size.small')
+          }}</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -16,13 +22,11 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
 import useAppStore from '@/stores/modules/app'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 
 defineOptions({ name: 'AppElementSize' })
 
-const { t }  = useI18n()
 const appStore = useAppStore()
 const size = computed(() => appStore.size)
 

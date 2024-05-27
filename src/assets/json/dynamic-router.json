@@ -15,23 +15,23 @@
       }
     },
     {
-      "path": "/report",
-      "name": "reportManager",
-      "redirect": "/report/manager",
+      "path": "/zydata",
+      "name": "zydataManager",
+      "redirect": "/zydata/manager",
       "meta": {
         "icon": "HomeFilled",
-				"title": "报告查询",
+				"title": "数据管理",
         "isFull": false,
         "isAffix": true,
         "isKeepAlive": true
       },
       "children":[ {
-        "path": "/report/manager",
+        "path": "/zydata/manager",
         "name": "Manager",
-        "component": "/report/manager/index.vue",
+        "component": "/zydata/manager/index.vue",
         "meta": {
           "icon": "",
-          "title": "报告管理",
+          "title": "数据查询",
           "isFull": false,
           "isAffix": true,
           "isKeepAlive": true
@@ -39,6 +39,103 @@
         
       }
       ]
+    },
+    {
+      "path": "/case",
+      "name": "case",
+      "component": "/case/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "医案管理",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/thesis",
+      "name": "thesis",
+      "component": "/thesis/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "论文管理",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/treatment",
+      "name": "treatment",
+      "component": "/treatment/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "治疗方案",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/courseware",
+      "name": "courseware",
+      "component": "/courseware/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "课件讲稿",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    
+    {
+      "path": "/workinfo",
+      "name": "workinfo",
+      "component": "/workinfo/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "著作信息",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/video",
+      "name": "video",
+      "component": "/video/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "影像管理",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/dee",
+      "name": "dee",
+      "component": "/dee/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "医生管理",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/role",
+      "name": "role",
+      "component": "/role/index.vue",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "权限分配",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
     }
   ]
 }

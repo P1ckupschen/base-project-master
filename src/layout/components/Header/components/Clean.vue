@@ -21,13 +21,13 @@ const clean = () => {
       buttonSize: 'default'
     }
   )
-  .then(() => {
-    localStorage.removeItem('keep-alive')
-    localStorage.removeItem('tags-view')
-    localStorage.removeItem('layout')
-    localStorage.removeItem('app')
-    location.reload()
-  })
-  .catch(() => {})
+    .then(() => {
+      localStorage.removeItem('keep-alive')
+      localStorage.removeItem('tags-view')
+      localStorage.removeItem('layout')
+      localStorage.removeItem('app')
+      location.reload()
+    })
+    .catch(() => {})
 }
 </script>

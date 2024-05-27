@@ -13,7 +13,7 @@ const initDynamicRouter = async() => {
 
   authStore.getFlatMenuList().forEach(item => {
     item.children && delete item.children
-    console.log(item)
+    // console.log(item)
     if (item.component && typeof item.component === 'string') {
       item.component = loadView(item.component)
     }

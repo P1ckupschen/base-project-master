@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 defineOptions({ name: 'AppMenuItem' })
 
 const props = defineProps({
