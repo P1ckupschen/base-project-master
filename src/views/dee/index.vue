@@ -8,23 +8,17 @@
       <div class="table-box mt16">
         <el-table :data="list" :border="true" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" />
-          <el-table-column
-            fixed
-            prop="name"
-            label="医生名称"
-            align="center"
-            width="120"
-          ></el-table-column>
+          <el-table-column fixed prop="name" label="医生名称" align="center"></el-table-column>
           <el-table-column
             prop="remark"
             label="医生描述"
             :show-overflow-tooltip="true"
             align="center"
-            width="120"
           ></el-table-column>
-          <el-table-column label="操作" min-width="160" align="center">
+          <el-table-column label="操作" align="center">
             <template #default="scope">
               <el-button type="default" @click="handleEdit(scope.row)">修改</el-button>
+              <el-button type="default" @click="handleReset(scope.row)">重置密码</el-button>
               <el-button type="danger" @click="handleDelete(scope.row)">删除</el-button>
             </template>
           </el-table-column>
@@ -53,7 +47,7 @@
 import CreateOrEditDialog from './dialog/CreateOrEditDialog.vue'
 import deleteDialog from '@/components/Dialog/deleteDialog.vue'
 import SearchFilter from './filter/index.vue'
-import { getList, deleteAccount } from '@/api/system/account.js'
+import { getList, deleteAccount, resetAccount } from '@/api/system/account.js'
 import { ref, reactive, onMounted, toRaw } from 'vue'
 import { ElMessage } from 'element-plus'
 const total = ref(0)
@@ -90,6 +84,17 @@ const getTableList = () => {
       total.value = response.data.data.total
     } else {
       ElMessage.error(response.data.data.msg)
+    }
+  })
+}
+const handleReset = row => {
+  resetAccount(row.id).then(res => {
+    // console.log(response.data.data)
+    if (res.data.code === 200) {
+      ElMessage.success(res.data.msg)
+      getTableList()
+    } else {
+      ElMessage.error(res.data.msg)
     }
   })
 }

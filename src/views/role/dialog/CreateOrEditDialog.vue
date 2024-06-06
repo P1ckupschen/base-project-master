@@ -2,11 +2,10 @@
   <div>
     <el-dialog v-model="dialogVisible" :title="props.title" :key="new Date().getTime()">
       <el-form :model="temp" label-width="120px">
-        <el-form-item label="姓名">
+        <el-form-item label="角色名称">
           <el-input v-model="temp.roleName" size="large"></el-input>
         </el-form-item>
 
-        <el-form-item label="角色标识"> </el-form-item>
         <el-form-item label="菜单设置">
           <MenuTreeVue ref="MenuRef" v-model="temp.menusList"></MenuTreeVue>
         </el-form-item>

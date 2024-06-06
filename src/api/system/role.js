@@ -9,7 +9,7 @@ export function fetchRoleSelectList() {
 
 export function getList(query) {
   return request({
-    url: '/role/getRoleList',
+    url: '/role/getList',
     method: 'get',
     params:
       query

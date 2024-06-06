@@ -13,7 +13,7 @@
       <el-switch v-model="layoutStore.showFooter"></el-switch>
     </div>
   </el-drawer>
-</template> 
+</template>
 
 <script setup>
 import useLayoutStore from '@/stores/modules/layout'

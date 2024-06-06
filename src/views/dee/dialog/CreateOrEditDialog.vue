@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-dialog v-model="dialogVisible" :title="props.title" :key="new Date().getTime()">
-      <el-form :model="temp" label-width="120px">
-        <el-form-item label="姓名">
+      <el-form ref="coeRef" :model="temp" :rules="rules" label-width="120px">
+        <el-form-item label="姓名" prop="name">
           <el-input v-model="temp.name" size="large"></el-input>
         </el-form-item>
         <!-- <el-form-item label="性别">
@@ -11,22 +11,22 @@
         <el-form-item label="状态" v-if="props.title === '修改'">
           <StatusSwitch v-model="temp.status"></StatusSwitch>
         </el-form-item>
-        <el-form-item label="账号" v-if="props.title === '新建'">
+        <el-form-item label="账号" v-if="props.title === '新建'" prop="username">
           <el-input v-model="temp.username"></el-input>
         </el-form-item>
         <el-form-item label="账号" v-if="props.title === '修改'">
           <span>{{ temp.username }}</span>
         </el-form-item>
-        <el-form-item label="角色分配">
+        <el-form-item label="角色分配" prop="roleIds">
           <RoleSelect v-model="temp.roleIds"></RoleSelect>
         </el-form-item>
         <el-form-item label="备注">
           <el-input v-model="temp.remark" type="textarea"></el-input>
         </el-form-item>
-        <el-form-item lable="创建时间" v-if="props.title === '修改'">
+        <el-form-item label="创建时间" v-if="props.title === '修改'">
           <span>{{ temp.createTime }}</span>
         </el-form-item>
-        <el-form-item lable="更新时间" v-if="props.title === '修改'">
+        <el-form-item label="更新时间" v-if="props.title === '修改'">
           <span>{{ temp.updateTime }}</span>
         </el-form-item>
       </el-form>
@@ -62,8 +62,13 @@ const initialState = {
   sex: null,
   remark: ''
 }
+const rules = {
+  name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+  username: [{ required: true, message: '请输入账户', trigger: 'blur' }],
+  roleIds: [{ required: true, message: '请选择角色', trigger: 'change' }]
+}
 const temp = reactive({ ...initialState })
-
+const coeRef = ref()
 function resetTemp() {
   Object.assign(temp, initialState)
 }
@@ -101,13 +106,19 @@ const updateCommit = () => {
   })
 }
 const createCommit = () => {
-  createAccount(temp).then(res => {
-    if (res.data.code === 200) {
-      ElMessage.success('操作成功')
-      emits('getTableList')
-      dialogVisible.value = false
+  coeRef.value.validate(valid => {
+    if (valid) {
+      createAccount(temp).then(res => {
+        if (res.data.code === 200) {
+          ElMessage.success('操作成功')
+          emits('getTableList')
+          dialogVisible.value = false
+        } else {
+          ElMessage.error(res.data.msg)
+        }
+      })
     } else {
-      ElMessage.error(res.data.msg)
+      ElMessage.error('表单内容输入有误')
     }
   })
 }

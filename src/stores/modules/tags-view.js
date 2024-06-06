@@ -32,7 +32,7 @@ const useTagsViewStore = defineStore('tags-view', () => {
     state.tagsViewList = tagsViewList.filter(item => item.path !== path)
   }
 
-  // 传入当前页面地址，关闭其他isAffix为false的页签
+  // 传入当前页面地址，isAffix为false的页签
   const clearOther = active => {
     const tagsViewList = state.tagsViewList
     state.tagsViewList = tagsViewList.filter(item => item.path === active || !item.close)

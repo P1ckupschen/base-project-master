@@ -34,6 +34,16 @@ export function updateAccount(data) {
   })
 }
 
+export function resetAccount(data) {
+  return request({
+    url: '/account/reset',
+    method: 'post',
+    params: {
+      id: data
+    }
+  })
+}
+
 export function deleteAccount(data) {
   return request({
     url: '/account/delete',

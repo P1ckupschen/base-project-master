@@ -3,7 +3,6 @@
     <div class="login-box">
       <div class="top">
         <div class="logo">
-          <button @click="sendTest()">测试按钮</button>
           <!-- <img
             src="~@/assets/img/login-logo.png"
             alt=""
@@ -54,14 +53,12 @@
           </el-form-item>
         </el-form>
       </div>
-      <div class="bottom">
-        Copyright © 2024
-      </div>
+      <div class="bottom">Copyright © 2024</div>
     </div>
     <Verify
       ref="verifyRef"
       :captcha-type="'blockPuzzle'"
-      :img-size="{width:'400px',height:'200px'}"
+      :img-size="{ width: '400px', height: '200px' }"
       @success="login"
     />
   </div>
@@ -75,7 +72,6 @@ import { useRouter } from 'vue-router'
 import { reactive, ref } from 'vue'
 import useUserStore from '@/stores/modules/user'
 import { ElMessage } from 'element-plus'
-import axios from 'axios'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -129,12 +125,6 @@ const getCookie = () => {
   form.remember = !!Cookies.get('remember')
   form.username = Cookies.get('username') || undefined
   form.password = decrypt(Cookies.get('password')) || undefined
-}
-
-const sendTest = () => {
-  axios.get('/backend/demo', null).then(res => {
-    console.log(res)
-  })
 }
 
 getCookie()

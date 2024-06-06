@@ -7,10 +7,10 @@
         <el-button type="primary" @click="handleCreate">新建</el-button>
       </div>
 
-      <div>
+      <!-- <div>
         <p @click="exportExcelByIds">勾选下载</p>
         <p @click="exportExcelByQuery">根据筛选条件下载</p>
-      </div>
+      </div> -->
       <div class="table-box mt16">
         <el-table :data="list" :border="true" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" />
@@ -162,7 +162,7 @@
 <script setup>
 import CreateOrEditDialog from './dialog/CreateOrEditDialog.vue'
 import deleteDialog from '@/components/Dialog/deleteDialog.vue'
-import { getList, deleteZyData, getExcelByIds, getExcelByQuery } from '@/api/system/ZyData.js'
+import { getList, deleteZyData } from '@/api/system/ZyData.js'
 // import FilterComponents from '@/components/filter/index.vue'
 const total = ref(0)
 const list = ref()
@@ -243,43 +243,43 @@ const commitDelete = () => {
     }
   })
 }
-const exportExcelByIds = () => {
-  if (multipleSelection.value.length === 0) {
-    ElMessage.error('请选择要导出的数据')
-    return
-  }
-  const ids = []
-  multipleSelection.value.forEach(item => {
-    ids.push(item.id)
-  })
-  getExcelByIds(ids).then(res => {
-    const blob = new Blob([res], {
-      type: 'application/octet-stream; charset=utf-8'
-    })
-    const url = URL.createObjectURL(blob)
-    console.log(url)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = '中医数据.xlsx'
-    a.click()
-    URL.revokeObjectURL(url)
-  })
-}
+// const exportExcelByIds = () => {
+//   if (multipleSelection.value.length === 0) {
+//     ElMessage.error('请选择要导出的数据')
+//     return
+//   }
+//   const ids = []
+//   multipleSelection.value.forEach(item => {
+//     ids.push(item.id)
+//   })
+//   getExcelByIds(ids).then(res => {
+//     const blob = new Blob([res], {
+//       type: 'application/octet-stream; charset=utf-8'
+//     })
+//     const url = URL.createObjectURL(blob)
+//     console.log(url)
+//     const a = document.createElement('a')
+//     a.href = url
+//     a.download = '中医数据.xlsx'
+//     a.click()
+//     URL.revokeObjectURL(url)
+//   })
+// }
 
-const exportExcelByQuery = () => {
-  getExcelByQuery(listQuery.value).then(res => {
-    const blob = new Blob([res], {
-      type: 'application/octet-stream; charset=utf-8'
-    })
-    const url = URL.createObjectURL(blob)
-    console.log(url)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = '中医数据.xlsx'
-    a.click()
-    URL.revokeObjectURL(url)
-  })
-}
+// const exportExcelByQuery = () => {
+//   getExcelByQuery(listQuery.value).then(res => {
+//     const blob = new Blob([res], {
+//       type: 'application/octet-stream; charset=utf-8'
+//     })
+//     const url = URL.createObjectURL(blob)
+//     console.log(url)
+//     const a = document.createElement('a')
+//     a.href = url
+//     a.download = '中医数据.xlsx'
+//     a.click()
+//     URL.revokeObjectURL(url)
+//   })
+// }
 onMounted(() => {
   getTableList()
 })

@@ -25,7 +25,7 @@
             <el-dropdown-item command="current" icon="Remove">{{ $t('tags_view.close_current')}}</el-dropdown-item>
             <el-dropdown-item command="left" icon="DArrowLeft">{{ $t('tags_view.close_left')}}</el-dropdown-item>
             <el-dropdown-item command="right" icon="DArrowRight">{{ $t('tags_view.close_right')}}</el-dropdown-item>
-            <el-dropdown-item command="other" divided icon="CircleClose">{{ $t('tags_view.close_other')}}</el-dropdown-item>
+            <!-- <el-dropdown-item command="other" divided icon="CircleClose">{{ $t('tags_view.close_other')}}</el-dropdown-item> -->
             <el-dropdown-item command="clear" icon="SwitchButton">{{ $t('tags_view.close_all')}}</el-dropdown-item>
           </el-dropdown-menu>
         </template>

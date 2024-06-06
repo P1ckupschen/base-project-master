@@ -7,21 +7,14 @@
       </div>
       <div class="table-box mt16">
         <el-table :data="list" :border="true" @selection-change="handleSelectionChange">
-          <el-table-column
-            fixed
-            prop="roleName"
-            label="角色名称"
-            align="center"
-            width="120"
-          ></el-table-column>
+          <el-table-column fixed prop="roleName" label="角色名称" align="center"></el-table-column>
           <el-table-column
             prop="remark"
             label="角色描述"
             :show-overflow-tooltip="true"
             align="center"
-            width="120"
           ></el-table-column>
-          <el-table-column label="操作" min-width="160" align="center">
+          <el-table-column label="操作" align="center">
             <template #default="scope">
               <el-button type="default" @click="handleEdit(scope.row)">修改</el-button>
               <el-button type="danger" @click="handleDelete(scope.row)">删除</el-button>
