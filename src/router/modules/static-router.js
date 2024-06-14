@@ -1,4 +1,4 @@
-export const HOME_URL = '/home'
+export const HOME_URL = '/zydata'
 import LayoutView from '@/layout/index.vue'
 export const staticRouter = [
   {

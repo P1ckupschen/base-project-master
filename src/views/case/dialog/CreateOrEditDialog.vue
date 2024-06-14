@@ -5,10 +5,6 @@
         <el-form-item label="标题">
           <el-input v-model="temp.title" size="large"></el-input>
         </el-form-item>
-
-        <!-- <el-form-item label="性别">
-          <SexSelectVue v-model="temp.sex"></SexSelectVue>
-        </el-form-item> -->
         <el-form-item label="作者">
           <el-input v-model="temp.username" size="large"></el-input>
         </el-form-item>
