@@ -1,66 +1,56 @@
 <template>
-  <div class="login">
-    <div class="login-box">
-      <div class="top">
-        <div class="logo">
-          <!-- <img
-            src="~@/assets/img/login-logo.png"
-            alt=""
-          > -->
-        </div>
+  <div class="login-container">
+    <el-form
+      ref="loginForm"
+      :model="form"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
+      <div class="title-container">
+        <h3 class="title">中医大数据后台管理系统</h3>
       </div>
-      <div class="mid">
-        <el-form
-          :model="form"
-          label-position="top"
-          size="large"
-          :rules="rules"
-          hide-required-asterisk
-          :show-message="false"
-          ref="loginRef"
-          @keyup.enter="login"
-        >
-          <el-form-item :label="$t('login.username')" prop="username">
-            <el-input
-              v-model="form.username"
-              :placeholder="$t('login.username_placeholder')"
-              prefix-icon="User"
-            />
-          </el-form-item>
-          <el-form-item :label="$t('login.password')" prop="password">
-            <el-input
-              v-model="form.password"
-              :placeholder="$t('login.password_placeholder')"
-              prefix-icon="Lock"
-              type="password"
-            />
-          </el-form-item>
-          <el-form-item>
-            <div class="item-btn">
-              <!-- <input
-                type="button"
-                value="登录"
-                @click="login"
-              > -->
-              <el-button type="primary" auto-insert-space @click="login">{{
-                $t('login.sign_in')
-              }}</el-button>
-            </div>
 
-            <!-- <el-button plain type="default" auto-insert-space @click="reset">{{
-              $t('common.reset')
-            }}</el-button> -->
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="bottom">Copyright © 2024</div>
-    </div>
-    <Verify
-      ref="verifyRef"
-      :captcha-type="'blockPuzzle'"
-      :img-size="{ width: '400px', height: '200px' }"
-      @success="login"
-    />
+      <el-form-item prop="username">
+        <el-input
+          ref="username"
+          v-model="form.username"
+          placeholder="Username"
+          name="username"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+        />
+      </el-form-item>
+
+      <el-form-item prop="password">
+        <el-input
+          ref="password"
+          v-model="form.password"
+          placeholder="Password"
+          name="password"
+          tabindex="2"
+          type="password"
+          auto-complete="on"
+          clearable
+        />
+      </el-form-item>
+
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        @click="login"
+      >
+        登录
+      </el-button>
+
+      <!-- <div class="tips">
+        <span style="margin-right:20px;">username: admin</span>
+        <span> password: any</span>
+      </div> -->
+    </el-form>
   </div>
 </template>
 
@@ -76,13 +66,13 @@ import { ElMessage } from 'element-plus'
 const router = useRouter()
 const userStore = useUserStore()
 
-const loginRef = ref(null)
+const loginForm = ref(null)
 const form = reactive({
   username: undefined,
   password: undefined,
   remember: false
 })
-const rules = reactive({
+const loginRules = reactive({
   username: [{ required: true, trigger: 'blur' }],
   password: [{ required: true, trigger: 'blur' }]
 })
@@ -92,7 +82,7 @@ const rules = reactive({
 // }
 
 const login = () => {
-  loginRef.value.validate(valid => {
+  loginForm.value.validate(valid => {
     if (valid) {
       setCookie()
       var formData = {}
@@ -130,61 +120,90 @@ const getCookie = () => {
 getCookie()
 </script>
 
-<style lang="scss" scoped>
-.login {
-  width: 100%;
-  height: 100%;
-  background: url('../../assets/images/login-bg.png') no-repeat;
-  background-size: cover;
-  position: fixed;
-  .login-box {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 100%;
-    padding-top: 10%;
-    .top {
-      margin-bottom: 30px;
-      text-align: center;
-      .logo {
-        font-size: 0;
-        max-width: 50%;
-        margin: 0 auto;
-      }
-      &:deep(.company) {
-        font-size: 16px;
-        margin-top: 10px;
-      }
-    }
-    .mid {
-      font-size: 14px;
-      .item-btn {
-        width: 410px;
-        margin-top: 20px;
-        button {
-          border: 0;
-          width: 100%;
-          height: 40px;
-          background: #1f87e8;
-          color: #fff;
-          border-radius: 3px;
-        }
-      }
-    }
-    .bottom {
-      position: absolute;
-      bottom: 10%;
-      width: 100%;
-      color: #999;
-      font-size: 12px;
-      text-align: center;
-    }
+<style lang="scss">
+/* 修复input 背景不协调 和光标变色 */
+/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
+
+$bg: #283443;
+$light_gray: #fff;
+$cursor: #283443;
+
+@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+  .login-container .el-input input {
+    color: $cursor;
   }
 }
-.info {
-  width: 410px;
+
+/* reset element-ui css */
+.login-container {
+  .el-form-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: #454545;
+  }
 }
-:deep(.login-captcha) {
-  height: 40px;
+</style>
+<style lang="scss" scoped>
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
+
+.login-container {
+  min-height: 100%;
+  width: 100%;
+  background-color: $bg;
+  overflow: hidden;
+
+  .login-form {
+    position: relative;
+    width: 520px;
+    max-width: 100%;
+    padding: 160px 35px 0;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .tips {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 10px;
+
+    span {
+      &:first-of-type {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .svg-container {
+    padding: 6px 5px 6px 15px;
+    color: $dark_gray;
+    vertical-align: middle;
+    width: 30px;
+    display: inline-block;
+  }
+
+  .title-container {
+    position: relative;
+
+    .title {
+      font-size: 26px;
+      color: $light_gray;
+      margin: 0px auto 40px auto;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  .show-pwd {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    font-size: 16px;
+    color: $dark_gray;
+    cursor: pointer;
+    user-select: none;
+  }
 }
 </style>

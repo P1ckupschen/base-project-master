@@ -37,26 +37,26 @@ const props = defineProps({
 const actionUrl = ref(uploadFileUrl)
 const emits = defineEmits(['update:modelValue'])
 
-const handleRemove = (file) => {
+const handleRemove = file => {
   const uid = file.uid
   // const target = value.value.find((pic) => pic.uid === uid)
   // console.log(target)
   // if (target) {
   deleteFile({ path: file.url })
   // }
-  const newList = value.value.filter((item) => item.uid !== uid)
+  const newList = value.value.filter(item => item.uid !== uid)
   value.value = newList
 }
 
-const beforeUpload = (uploadFile) => {
+const beforeUpload = uploadFile => {
   const isType =
-  uploadFile.type === 'application/pdf' ||
-  uploadFile.type === 'image/png' ||
-  uploadFile.type === 'image/jpeg' ||
-  uploadFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-  uploadFile.type === 'application/msword' ||
-  uploadFile.type === 'application/vnd.ms-excel' ||
-  uploadFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    uploadFile.type === 'application/pdf' ||
+    uploadFile.type === 'image/png' ||
+    uploadFile.type === 'image/jpeg' ||
+    uploadFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+    uploadFile.type === 'application/msword' ||
+    uploadFile.type === 'application/vnd.ms-excel' ||
+    uploadFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   const isLt20M = uploadFile.size / 1024 / 1024 < 20
   if (!isType) {
     ElMessage.error('仅支持jpg,jpeg,png,pdf,doc,docx,xlsx,xls格式！')
@@ -69,7 +69,7 @@ const beforeUpload = (uploadFile) => {
 }
 
 const handleSuccess = (res, uploadFile) => {
-  const list = value.value.map((item) => {
+  const list = value.value.map(item => {
     if (item.uid === uploadFile.uid) {
       return {
         uid: uploadFile.uid,
@@ -86,7 +86,7 @@ const handleExceed = () => {
   ElMessage.warning('最多只能上传' + props.limit + '个文件')
 }
 
-const handlePreview = (v) => {
+const handlePreview = v => {
   window.open(filePublicHost + v.url)
 }
 

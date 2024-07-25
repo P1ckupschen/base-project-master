@@ -74,9 +74,11 @@ const handleSelectionChange = val => {
 }
 const handleSizeChange = val => {
   listQuery.value.pageSize = val
+  getTableList()
 }
 const handleCurrentChange = val => {
   listQuery.value.pageNum = val
+  getTableList()
 }
 const getTableList = () => {
   getList(listQuery.value).then(response => {

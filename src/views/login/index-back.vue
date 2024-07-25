@@ -1,13 +1,15 @@
 <template>
-  <div class="page-wrapper">
-    <div class="translate">
-      <!-- <Translate /> -->
-    </div>
-    <div class="login-wrapper">
-      <div class="form-wrapper">
-        <div class="tc m30">
-          <el-text size="large">{{ $t('login.title_sign_in') }}</el-text>
+  <div class="login">
+    <div class="login-box">
+      <div class="top">
+        <div class="logo">
+          <!-- <img
+            src="~@/assets/img/login-logo.png"
+            alt=""
+          > -->
         </div>
+      </div>
+      <div class="mid">
         <el-form
           :model="form"
           label-position="top"
@@ -16,6 +18,7 @@
           hide-required-asterisk
           :show-message="false"
           ref="loginRef"
+          @keyup.enter="login"
         >
           <el-form-item :label="$t('login.username')" prop="username">
             <el-input
@@ -32,25 +35,32 @@
               type="password"
             />
           </el-form-item>
-          <!-- <el-form-item prop="remember">
-            <el-checkbox v-model="form.remember">{{ $t('login.remember') }}</el-checkbox>
-          </el-form-item> -->
           <el-form-item>
-            <el-button type="primary" auto-insert-space @click="login">{{
-              $t('login.sign_in')
-            }}</el-button>
+            <div class="item-btn">
+              <!-- <input
+                type="button"
+                value="登录"
+                @click="login"
+              > -->
+              <el-button type="primary" auto-insert-space @click="login">{{
+                $t('login.sign_in')
+              }}</el-button>
+            </div>
+
             <!-- <el-button plain type="default" auto-insert-space @click="reset">{{
               $t('common.reset')
             }}</el-button> -->
           </el-form-item>
-          <el-form-item>
-            <el-divider></el-divider>
-            <!-- <el-button link type="primary" @click="signup">{{ $t('login.sign_up') }}</el-button>
-            <el-button link type="primary">{{ $t('login.forget') }}</el-button> -->
-          </el-form-item>
         </el-form>
       </div>
+      <div class="bottom">Copyright © 2024</div>
     </div>
+    <Verify
+      ref="verifyRef"
+      :captcha-type="'blockPuzzle'"
+      :img-size="{ width: '400px', height: '200px' }"
+      @success="login"
+    />
   </div>
 </template>
 
@@ -61,6 +71,7 @@ import md5 from 'js-md5'
 import { useRouter } from 'vue-router'
 import { reactive, ref } from 'vue'
 import useUserStore from '@/stores/modules/user'
+import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -89,19 +100,14 @@ const login = () => {
       // formData.password = md5('ABCDEFGHIJKLMN' + formData.password)
       formData.password = md5(formData.password)
       // formData.password = encrypt(form.password)
-      console.log(formData)
       userStore.login(formData).then(() => {
         router.push('/')
       })
+    } else {
+      ElMessage.error('用户名或密码不规范')
     }
   })
 }
-
-// const signup = () => {
-//   console.log(location.host)
-//   console.log(location.href)
-//   console.log(import.meta.env.VITE_APP_BASE_API)
-// }
 
 const setCookie = () => {
   if (form.remember) {
@@ -125,32 +131,60 @@ getCookie()
 </script>
 
 <style lang="scss" scoped>
-.page-wrapper {
-  background-color: #fce5af;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .login-wrapper {
-    width: 1069px;
-    height: 550px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background: url(@/assets/images/bookshelf.png) no-repeat;
-    background-size: contain;
-
-    .form-wrapper {
-      background-color: var(--el-bg-color);
-      width: 390px;
-      padding: 20px 30px;
+.login {
+  width: 100%;
+  height: 100%;
+  background: url('../../assets/images/login-bg.png') no-repeat;
+  background-size: cover;
+  position: fixed;
+  .login-box {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    padding-top: 10%;
+    .top {
+      margin-bottom: 30px;
+      text-align: center;
+      .logo {
+        font-size: 0;
+        max-width: 50%;
+        margin: 0 auto;
+      }
+      &:deep(.company) {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+    }
+    .mid {
+      font-size: 14px;
+      .item-btn {
+        width: 410px;
+        margin-top: 20px;
+        button {
+          border: 0;
+          width: 100%;
+          height: 40px;
+          background: #1f87e8;
+          color: #fff;
+          border-radius: 3px;
+        }
+      }
+    }
+    .bottom {
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      color: #999;
+      font-size: 12px;
+      text-align: center;
     }
   }
 }
-
-.translate {
-  position: fixed;
-  right: 50px;
-  top: 30px;
+.info {
+  width: 410px;
+}
+:deep(.login-captcha) {
+  height: 40px;
 }
 </style>

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import { errorRouter, staticRouter } from './modules/static-router'
 import initDynamicRouter from './modules/dynamic-router'
 import NProgress from '@/plugins/use-nprogress'
@@ -23,7 +23,7 @@ import { getToken } from '@/utils/cookie'
  * */
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [...staticRouter, ...errorRouter]
 })
 

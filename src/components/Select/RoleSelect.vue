@@ -1,6 +1,13 @@
 <template>
   <div class="flex flex-wrap gap-4 items-center">
-    <el-select v-model="value" multiple placeholder="选择角色" size="large" style="width: 240px">
+    <el-select
+      v-model="value"
+      multiple
+      placeholder="选择角色"
+      size="large"
+      style="width: 240px"
+      :disabled="props.disabled"
+    >
       <el-option
         v-for="item in roleOptions"
         :key="item.roleId"
@@ -19,6 +26,10 @@ const props = defineProps({
   modelValue: {
     type: Array,
     default: () => []
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
 const emits = defineEmits(['update:modelValue'])

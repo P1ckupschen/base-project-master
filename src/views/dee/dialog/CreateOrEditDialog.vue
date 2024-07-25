@@ -5,9 +5,9 @@
         <el-form-item label="姓名" prop="name">
           <el-input v-model="temp.name" size="large"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="性别">
-          <SexSelect v-model="temp.sex"></SexSelect>
-        </el-form-item> -->
+        <el-form-item label="工号" prop="code">
+          <el-input v-model="temp.code" size="large"></el-input>
+        </el-form-item>
         <el-form-item label="状态" v-if="props.title === '修改'">
           <StatusSwitch v-model="temp.status"></StatusSwitch>
         </el-form-item>
@@ -59,6 +59,7 @@ const initialState = {
   updateTime: '',
   roleIds: [],
   status: null,
+  code: '',
   sex: null,
   remark: ''
 }

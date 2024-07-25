@@ -4,6 +4,7 @@
       <div class="page-header">
         <SearchFilter v-model:listQuery="listQuery" :search="handleSearch"></SearchFilter>
         <el-button type="primary" @click="handleCreate">新建</el-button>
+        <el-button type="danger" @click="handleDelete">批量删除</el-button>
       </div>
       <div class="table-box mt16">
         <el-table :data="list" :border="true" @selection-change="handleSelectionChange">
@@ -73,9 +74,11 @@ const handleSelectionChange = val => {
 }
 const handleSizeChange = val => {
   listQuery.value.pageSize = val
+  getTableList()
 }
 const handleCurrentChange = val => {
   listQuery.value.pageNum = val
+  getTableList()
 }
 const getTableList = () => {
   getList(listQuery.value).then(response => {
@@ -100,7 +103,9 @@ const handleCreate = () => {
   key.value = 'Create'
   coeRef.value.open('')
 }
+const deleteId = ref()
 const handleDelete = row => {
+  deleteId.value = row.id
   deleteRef.value.open()
 }
 const commitDelete = () => {
@@ -108,6 +113,9 @@ const commitDelete = () => {
   multipleSelection.value.forEach(item => {
     ids.push(item.id)
   })
+  if (ids.length === 0) {
+    ids.push(deleteId.value)
+  }
   deleteTreatment(ids).then(res => {
     if (res.data.code === 200) {
       ElMessage.success(res.data.msg)
