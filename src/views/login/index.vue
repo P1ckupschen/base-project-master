@@ -73,8 +73,8 @@ const form = reactive({
   remember: false
 })
 const loginRules = reactive({
-  username: [{ required: true, trigger: 'blur' }],
-  password: [{ required: true, trigger: 'blur' }]
+  username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
+  password: [{ required: true, trigger: 'blur', message: '请输入密码' }]
 })
 
 // const reset = () => {
