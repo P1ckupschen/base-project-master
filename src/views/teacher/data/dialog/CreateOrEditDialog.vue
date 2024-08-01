@@ -9,8 +9,14 @@
         <!-- <el-form-item label="性别">
           <SexSelectVue v-model="temp.sex"></SexSelectVue>
         </el-form-item> -->
-        <el-form-item label="作者">
+        <el-form-item label="记录人">
           <el-input v-model="temp.username" size="large"></el-input>
+        </el-form-item>
+        <el-form-item label="类别">
+          <TeachCateSelect v-model="temp.categoryId"></TeachCateSelect>
+        </el-form-item>
+        <el-form-item label="时间">
+          <DateTimePicker v-model="temp.time"></DateTimePicker>
         </el-form-item>
         <el-form-item label="摘要">
           <el-input v-model="temp.summary" type="textarea" :rows="5" size="large"></el-input>
@@ -42,10 +48,13 @@
 </template>
 
 <script setup>
-import { updateWorkinfo, createWorkinfo, getDetailById } from '@/api/system/workinfo.js'
+import { updateTeach, createTeach, getDetailById } from '@/api/system/teachData.js'
 import { ElMessage } from 'element-plus'
 import { ref, reactive } from 'vue'
 import UploadFile from '@/components/Upload/common/UploadFile.vue'
+import TeachCateSelect from '@/components/Select/TeachCateSelect.vue'
+import DateTimePicker from '@/components/common/DateTimePicker.vue'
+
 const props = defineProps(['title'])
 const dialogVisible = ref(false)
 const initialState = {
@@ -54,7 +63,9 @@ const initialState = {
   remark: '',
   summary: '',
   username: '',
-  url: []
+  url: [],
+  time: '',
+  categoryId: 0
 }
 const temp = reactive({ ...initialState })
 
@@ -84,7 +95,7 @@ const open = id => {
 
 const emits = defineEmits(['getTableList'])
 const updateCommit = () => {
-  updateWorkinfo(temp).then(res => {
+  updateTeach(temp).then(res => {
     if (res.data.code === 200) {
       ElMessage.success('操作成功')
       emits('getTableList')
@@ -95,7 +106,7 @@ const updateCommit = () => {
   })
 }
 const createCommit = () => {
-  createWorkinfo(temp).then(res => {
+  createTeach(temp).then(res => {
     if (res.data.code === 200) {
       ElMessage.success('操作成功')
       emits('getTableList')

@@ -21,6 +21,12 @@
         <el-form-item label="文件">
           <UploadFile v-model="temp.url"></UploadFile>
         </el-form-item>
+        <el-form-item label="创建时间" v-if="props.title === '修改'">
+          <span>{{ temp.createTime }}</span>
+        </el-form-item>
+        <el-form-item label="更新时间" v-if="props.title === '修改'">
+          <span>{{ temp.updateTime }}</span>
+        </el-form-item>
       </el-form>
 
       <template #footer>

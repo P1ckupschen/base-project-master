@@ -30,6 +30,46 @@
       ]
     },
     {
+      "path": "/teacher",
+      "name": "teacher",
+      "redirect": "/teacher/data",
+      "meta": {
+        "icon": "HomeFilled",
+				"title": "跟师资料",
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      },
+      "children":[ {
+        "path": "/teacher/data",
+        "name": "data",
+        "component": "/teacher/data/index.vue",
+        "meta": {
+          "icon": "",
+          "title": "资料信息",
+          "isFull": false,
+          "isAffix": true,
+          "isKeepAlive": true
+        }
+        
+      },
+      {
+        "path": "/teacher/cate",
+        "name": "cate",
+        "component": "/teacher/cate/index.vue",
+        "meta": {
+          "icon": "",
+          "title": "资料类型",
+          "isFull": false,
+          "isAffix": true,
+          "isKeepAlive": true
+        }
+        
+      }
+      ]
+      
+    },
+    {
       "path": "/thesis",
       "name": "thesis",
       "component": "/thesis/index.vue",

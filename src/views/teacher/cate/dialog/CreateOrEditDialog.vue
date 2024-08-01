@@ -2,30 +2,8 @@
   <div>
     <el-dialog v-model="dialogVisible" :title="props.title" :key="new Date().getTime()">
       <el-form :model="temp" label-width="120px">
-        <el-form-item label="标题">
-          <el-input v-model="temp.title" size="large"></el-input>
-        </el-form-item>
-
-        <!-- <el-form-item label="性别">
-          <SexSelectVue v-model="temp.sex"></SexSelectVue>
-        </el-form-item> -->
-        <el-form-item label="作者">
-          <el-input v-model="temp.username" size="large"></el-input>
-        </el-form-item>
-        <el-form-item label="摘要">
-          <el-input v-model="temp.summary" type="textarea" :rows="5" size="large"></el-input>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input v-model="temp.remark" size="large"></el-input>
-        </el-form-item>
-        <el-form-item label="文件">
-          <UploadFile v-model="temp.url"></UploadFile>
-        </el-form-item>
-        <el-form-item label="创建时间" v-if="props.title === '修改'">
-          <span>{{ temp.createTime }}</span>
-        </el-form-item>
-        <el-form-item label="更新时间" v-if="props.title === '修改'">
-          <span>{{ temp.updateTime }}</span>
+        <el-form-item label="名称">
+          <el-input v-model="temp.name" size="large"></el-input>
         </el-form-item>
       </el-form>
 
@@ -42,19 +20,15 @@
 </template>
 
 <script setup>
-import { updateWorkinfo, createWorkinfo, getDetailById } from '@/api/system/workinfo.js'
+import { updateTeachCate, createTeachCate, getDetailById } from '@/api/system/teachCate.js'
 import { ElMessage } from 'element-plus'
 import { ref, reactive } from 'vue'
-import UploadFile from '@/components/Upload/common/UploadFile.vue'
+
 const props = defineProps(['title'])
 const dialogVisible = ref(false)
 const initialState = {
   id: null,
-  title: '',
-  remark: '',
-  summary: '',
-  username: '',
-  url: []
+  name: ''
 }
 const temp = reactive({ ...initialState })
 
@@ -84,7 +58,7 @@ const open = id => {
 
 const emits = defineEmits(['getTableList'])
 const updateCommit = () => {
-  updateWorkinfo(temp).then(res => {
+  updateTeachCate(temp).then(res => {
     if (res.data.code === 200) {
       ElMessage.success('操作成功')
       emits('getTableList')
@@ -95,7 +69,7 @@ const updateCommit = () => {
   })
 }
 const createCommit = () => {
-  createWorkinfo(temp).then(res => {
+  createTeachCate(temp).then(res => {
     if (res.data.code === 200) {
       ElMessage.success('操作成功')
       emits('getTableList')
