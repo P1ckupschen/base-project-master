@@ -5,6 +5,7 @@
         <!-- <FilterComponents v-model:listQuery="listQuery"></FilterComponents> -->
         <!-- <el-button @click="getTableList">筛选</el-button> -->
         <el-button type="primary" @click="handleCreate">新建</el-button>
+        <el-button type="danger" @click="handleDelete">批量删除</el-button>
       </div>
 
       <!-- <div>
@@ -162,7 +163,7 @@
 <script setup>
 import CreateOrEditDialog from './dialog/CreateOrEditDialog.vue'
 import deleteDialog from '@/components/Dialog/deleteDialog.vue'
-import { getList, deleteZyData } from '@/api/system/ZyData.js'
+import { getList, deleteZyDatas } from '@/api/system/ZyData.js'
 // import FilterComponents from '@/components/filter/index.vue'
 const total = ref(0)
 const list = ref()
@@ -174,7 +175,6 @@ const textMap = reactive({
   Create: '新建',
   Edit: '修改'
 })
-const Id = ref()
 const listQuery = ref({
   pageNum: 1,
   pageSize: 10,
@@ -229,12 +229,20 @@ const handleCreate = () => {
   key.value = 'Create'
   coeRef.value.open('')
 }
+const deleteId = ref()
 const handleDelete = row => {
-  Id.value = row.id
+  deleteId.value = row.id
   deleteRef.value.open()
 }
 const commitDelete = () => {
-  deleteZyData(Id.value).then(res => {
+  var ids = []
+  multipleSelection.value.forEach(item => {
+    ids.push(item.id)
+  })
+  if (ids.length === 0) {
+    ids.push(deleteId.value)
+  }
+  deleteZyDatas(ids).then(res => {
     if (res.data.code === 200) {
       ElMessage.success(res.data.msg)
       getTableList()

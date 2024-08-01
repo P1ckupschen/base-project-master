@@ -62,7 +62,7 @@ export function deleteZyData(id) {
 export function deleteZyDatas(ids) {
   return request({
     url: '/zydata/deleteBatches',
-    method: 'delete',
+    method: 'post',
     data: ids
   })
 }
