@@ -21,7 +21,6 @@ import { ElMessage } from 'element-plus'
 import { computed, ref } from 'vue'
 import { uploadFileUrl, deleteFile, filePublicHost } from '@/api/common/upload'
 import { getHeaders } from '@/utils/request.js'
-
 const props = defineProps({
   modelValue: {
     type: Array,
@@ -42,7 +41,8 @@ const handleRemove = file => {
   // const target = value.value.find((pic) => pic.uid === uid)
   // console.log(target)
   // if (target) {
-  deleteFile({ path: file.url })
+  console.log(file)
+  deleteFile({ path: file.path })
   // }
   const newList = value.value.filter(item => item.uid !== uid)
   value.value = newList
@@ -69,12 +69,13 @@ const beforeUpload = uploadFile => {
 }
 
 const handleSuccess = (res, uploadFile) => {
+  console.log(res)
   const list = value.value.map(item => {
     if (item.uid === uploadFile.uid) {
       return {
         uid: uploadFile.uid,
         name: uploadFile.name,
-        url: res.data
+        path: res.data
       }
     }
     return item
@@ -87,7 +88,8 @@ const handleExceed = () => {
 }
 
 const handlePreview = v => {
-  window.open(filePublicHost + v.url)
+  // todo 本地看不到图片 需添加/backend
+  window.open(filePublicHost + v.path)
 }
 
 const value = computed({

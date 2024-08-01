@@ -64,7 +64,7 @@ export default request
 export const getHeaders = () => {
   const token = getToken()
   return {
-    // Authorization: 'Bearer ' + token
-    'sys-token': 'Bearer ' + token
+    Authorization: 'Bearer ' + token
+    // 'sys-token': 'Bearer ' + token
   }
 }
